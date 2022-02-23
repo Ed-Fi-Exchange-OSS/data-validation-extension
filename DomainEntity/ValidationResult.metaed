@@ -1,0 +1,30 @@
+Domain Entity ValidationResult
+    documentation "A specific example of a situation that has been identified in a validation run."
+    string ValidationResultIdentifier
+      documentation "An identifier for this validation result, unique within the validation run."
+      is part of identity
+      min length 1
+      max length 100
+    domain entity ValidationRule
+      documentation "Unique identifier for each rule"
+      is required
+    domain entity ValidationRun
+      documentation "The validation run that produced this result."
+      is optional
+    domain entity EdFi.EducationOrganization
+      documentation "The Education Organization that this validation result is associatied with. This could be used to control access."
+      is required
+    shared string EdFi.URI named Namespace
+      documentation "The namespace that this validation result is associatied with. This could be used to control access."
+      is optional
+    domain entity EdFi.Student
+      documentation "The student associated with the validation result (if applicable)"
+      is optional
+    domain entity EdFi.Staff
+      documentation "The staff member assoication with the validation result (if applicable)"
+      is optional
+    string OtherDetails
+      documentation "All of the remaining details from the validation results in a JSON string."
+      is optional
+      min length 1
+      max length 1024

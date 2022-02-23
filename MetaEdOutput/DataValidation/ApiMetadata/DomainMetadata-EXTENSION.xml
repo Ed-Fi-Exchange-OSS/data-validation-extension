@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AggregateExtensions logicalSchema="DataValidation" schema="datavalidation">
+  <Aggregate root="ErrorSeverityLevelDescriptor">
+    <Entity table="ErrorSeverityLevelDescriptor" isA="Descriptor" schema="datavalidation"/>
+  </Aggregate>
+  <Aggregate root="RuleStatusDescriptor">
+    <Entity table="RuleStatusDescriptor" isA="Descriptor" schema="datavalidation"/>
+  </Aggregate>
+  <Aggregate root="ValidationLogicTypeDescriptor">
+    <Entity table="ValidationLogicTypeDescriptor" isA="Descriptor" schema="datavalidation"/>
+  </Aggregate>
+  <Aggregate root="ValidationResult">
+    <Entity table="ValidationResult" schema="datavalidation"/>
+  </Aggregate>
+  <Aggregate root="ValidationRule">
+    <Entity table="ValidationRule" schema="datavalidation"/>
+  </Aggregate>
+  <Aggregate root="ValidationRuleCollection">
+    <Entity table="ValidationRuleCollection" schema="datavalidation"/>
+  </Aggregate>
+  <Aggregate root="ValidationRun">
+    <Entity table="ValidationRun" schema="datavalidation"/>
+  </Aggregate>
+  <Aggregate root="ValidationRunStatusDescriptor">
+    <Entity table="ValidationRunStatusDescriptor" isA="Descriptor" schema="datavalidation"/>
+  </Aggregate>
+</AggregateExtensions>

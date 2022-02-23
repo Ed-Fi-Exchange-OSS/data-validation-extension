@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.1-b" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/3.3.1-b" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="Ed-Fi-Core.xsd" />
+  <xs:annotation>
+    <xs:documentation>===== Ed-Fi 3.3.1-b Extensions =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== Domain Entities =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-ValidationResult">
+    <xs:annotation>
+      <xs:documentation>A specific example of a situation that has been identified in a validation run.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="ValidationResultIdentifier" type="EXTENSION-ValidationResultIdentifier">
+            <xs:annotation>
+              <xs:documentation>An identifier for this validation result, unique within the validation run.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ValidationRuleReference" type="EXTENSION-ValidationRuleReferenceType">
+            <xs:annotation>
+              <xs:documentation>Unique identifier for each rule</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ValidationRunReference" type="EXTENSION-ValidationRunReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The validation run that produced this result.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Education Organization that this validation result is associatied with. This could be used to control access.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Namespace" type="URI" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The namespace that this validation result is associatied with. This could be used to control access.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StudentReference" type="StudentReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The student associated with the validation result (if applicable)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StaffReference" type="StaffReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The staff member assoication with the validation result (if applicable)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OtherDetails" type="EXTENSION-OtherDetails" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>All of the remaining details from the validation results in a JSON string.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationRule">
+    <xs:annotation>
+      <xs:documentation>A rule that will find specific examples of invalid data.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="ValidationRuleCollectionReference" type="EXTENSION-ValidationRuleCollectionReferenceType">
+            <xs:annotation>
+              <xs:documentation>Collection of validation rule.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RuleIdentifier" type="EXTENSION-RuleIdentifier">
+            <xs:annotation>
+              <xs:documentation>uniquely identifies a rule in a Collection</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ExternalruleCode" type="EXTENSION-ExternalruleCode" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A reference to an external id for the rule.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ResourceType" type="EXTENSION-ResourceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The EdFi resource type that this rule relates to (other then EducationOrganization, Student, or Staff)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="HelpUrl" type="URI" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A link to more information about the rule and how to resolve it.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Description" type="Description" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>This is non-structured ASCII text that will include the short details that were used in the evaluation of the validation rule.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ShortDescription" type="EXTENSION-ShortDescription" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>This is non-structured ASCII text that will include the short details that were used in the evaluation of the validation rule.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RuleStatus" type="EXTENSION-RuleStatusDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The status of a validation rule.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-RuleStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Category" type="EXTENSION-Category" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The category of the rule.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ErrorSeverityLevel" type="EXTENSION-ErrorSeverityLevelDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The level of validation error</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ErrorSeverityLevelDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ValidationLogicType" type="EXTENSION-ValidationLogicTypeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The specific programing language (or pseudo-code) used to specify the rule</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ValidationLogicTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ValidationLogic" type="EXTENSION-ValidationLogic" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>If applicable, the SQL statement that identifies the validation situation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationRuleCollection">
+    <xs:annotation>
+      <xs:documentation>Collection of validation rule.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="CollectionIdentifier" type="EXTENSION-CollectionIdentifier">
+            <xs:annotation>
+              <xs:documentation>Rule coolection identifier.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CollectionDescription" type="EXTENSION-CollectionDescription" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Rule collection description</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationRun">
+    <xs:annotation>
+      <xs:documentation>A run of a validation engine.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="ValidationRuleCollectionReference" type="EXTENSION-ValidationRuleCollectionReferenceType">
+            <xs:annotation>
+              <xs:documentation>The validation collection that this rule belongs to.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RuleEngine" type="EXTENSION-RuleEngine">
+            <xs:annotation>
+              <xs:documentation>A reference to the specific rules engine that ran the validation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ExaminedOds" type="EXTENSION-ExaminedOds">
+            <xs:annotation>
+              <xs:documentation>A reference to the EdFi Ods that the validation egine ran agianst.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RunIdentifier" type="EXTENSION-RunIdentifier">
+            <xs:annotation>
+              <xs:documentation>An identifier for the validation run that wil differentiate it from other validation runs from the same engine on the same Ods.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ValidationRunStatus" type="EXTENSION-ValidationRunStatusDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The status of the validation run.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ValidationRunStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StartDateTime" type="xs:dateTime">
+            <xs:annotation>
+              <xs:documentation>The datetime that the validation run started, as recorded by the engine</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FinishDateTime" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The datetime that the validation run finished, as recorded by the engine</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Descriptors =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-ErrorSeverityLevelDescriptor">
+    <xs:annotation>
+      <xs:documentation>The level of validation error</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-RuleStatusDescriptor">
+    <xs:annotation>
+      <xs:documentation>The status of a validation rule.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationLogicTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The specific programing language (or pseudo-code) used to specify the rule</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationRunStatusDescriptor">
+    <xs:annotation>
+      <xs:documentation>The status of the validation run.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Associations =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== Extended Reference Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-ValidationResultIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a ValidationResult.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ValidationResultIdentifier" type="EXTENSION-ValidationResultIdentifier">
+        <xs:annotation>
+          <xs:documentation>An identifier for this validation result, unique within the validation run.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationResultReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a ValidationResult. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="ValidationResultIdentity" type="EXTENSION-ValidationResultIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a ValidationResult.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationRuleCollectionIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a ValidationRuleCollection.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CollectionIdentifier" type="EXTENSION-CollectionIdentifier">
+        <xs:annotation>
+          <xs:documentation>Rule coolection identifier.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationRuleCollectionReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a ValidationRuleCollection. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="ValidationRuleCollectionIdentity" type="EXTENSION-ValidationRuleCollectionIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a ValidationRuleCollection.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationRuleIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a ValidationRule.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ValidationRuleCollectionReference" type="EXTENSION-ValidationRuleCollectionReferenceType">
+        <xs:annotation>
+          <xs:documentation>Collection of validation rule.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RuleIdentifier" type="EXTENSION-RuleIdentifier">
+        <xs:annotation>
+          <xs:documentation>uniquely identifies a rule in a Collection</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationRuleReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a ValidationRule. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="ValidationRuleIdentity" type="EXTENSION-ValidationRuleIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a ValidationRule.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationRunIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a ValidationRun.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ValidationRuleCollectionReference" type="EXTENSION-ValidationRuleCollectionReferenceType">
+        <xs:annotation>
+          <xs:documentation>The validation collection that this rule belongs to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RuleEngine" type="EXTENSION-RuleEngine">
+        <xs:annotation>
+          <xs:documentation>A reference to the specific rules engine that ran the validation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ExaminedOds" type="EXTENSION-ExaminedOds">
+        <xs:annotation>
+          <xs:documentation>A reference to the EdFi Ods that the validation egine ran agianst.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RunIdentifier" type="EXTENSION-RunIdentifier">
+        <xs:annotation>
+          <xs:documentation>An identifier for the validation run that wil differentiate it from other validation runs from the same engine on the same Ods.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ValidationRunReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a ValidationRun. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="ValidationRunIdentity" type="EXTENSION-ValidationRunIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a ValidationRun.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Extended Descriptor Reference Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="EXTENSION-ErrorSeverityLevelDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The level of validation error</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-RuleStatusDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The status of a validation rule.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ValidationLogicTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The specific programing language (or pseudo-code) used to specify the rule</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ValidationRunStatusDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The status of the validation run.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:annotation>
+    <xs:documentation>===== Common Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== Enumerations and Enumerated Collections =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== String Simple Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="EXTENSION-Category">
+    <xs:annotation>
+      <xs:documentation>The category of the rule.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-CollectionDescription">
+    <xs:annotation>
+      <xs:documentation>Rule collection description</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-CollectionIdentifier">
+    <xs:annotation>
+      <xs:documentation>Rule coolection identifier.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="4" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ExaminedOds">
+    <xs:annotation>
+      <xs:documentation>A reference to the EdFi Ods that the validation egine ran agianst.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ExternalruleCode">
+    <xs:annotation>
+      <xs:documentation>A reference to an external id for the rule.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-OtherDetails">
+    <xs:annotation>
+      <xs:documentation>All of the remaining details from the validation results in a JSON string.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="1024" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ResourceType">
+    <xs:annotation>
+      <xs:documentation>The EdFi resource type that this rule relates to (other then EducationOrganization, Student, or Staff)</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-RuleEngine">
+    <xs:annotation>
+      <xs:documentation>A reference to the specific rules engine that ran the validation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-RuleIdentifier">
+    <xs:annotation>
+      <xs:documentation>uniquely identifies a rule in a Collection</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-RunIdentifier">
+    <xs:annotation>
+      <xs:documentation>An identifier for the validation run that wil differentiate it from other validation runs from the same engine on the same Ods.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ShortDescription">
+    <xs:annotation>
+      <xs:documentation>This is non-structured ASCII text that will include the short details that were used in the evaluation of the validation rule.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="1024" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ValidationLogic">
+    <xs:annotation>
+      <xs:documentation>If applicable, the SQL statement that identifies the validation situation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="1024" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ValidationResultIdentifier">
+    <xs:annotation>
+      <xs:documentation>An identifier for this validation result, unique within the validation run.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:annotation>
+    <xs:documentation>===== Numeric Simple Types =====</xs:documentation>
+  </xs:annotation>
+</xs:schema>
