@@ -1,10 +1,10 @@
-# {Insert Repository Name Here}
+# data-validation-extension
 
 {Insert project information here}
 
 ## Legal Information
 
-Copyright (c) 2021 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2022 Ed-Fi Alliance, LLC and contributors.
 
 Licensed under the [Apache License, Version 2.0](LICENSE) (the "License").
 
