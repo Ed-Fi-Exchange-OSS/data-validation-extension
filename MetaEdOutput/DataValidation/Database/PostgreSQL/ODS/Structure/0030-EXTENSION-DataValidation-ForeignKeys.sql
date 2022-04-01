@@ -1,9 +1,14 @@
-ALTER TABLE datavalidation.ErrorSeverityLevelDescriptor ADD CONSTRAINT FK_84fc72_Descriptor FOREIGN KEY (ErrorSeverityLevelDescriptorId)
+ALTER TABLE datavalidation.RuleStatusDescriptor ADD CONSTRAINT FK_61fb33_Descriptor FOREIGN KEY (RuleStatusDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE datavalidation.RuleStatusDescriptor ADD CONSTRAINT FK_61fb33_Descriptor FOREIGN KEY (RuleStatusDescriptorId)
+ALTER TABLE datavalidation.RunStatusDescriptor ADD CONSTRAINT FK_dd5cf9_Descriptor FOREIGN KEY (RunStatusDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE datavalidation.SeverityDescriptor ADD CONSTRAINT FK_97a343_Descriptor FOREIGN KEY (SeverityDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -34,26 +39,27 @@ REFERENCES edfi.Student (StudentUSI)
 CREATE INDEX FK_034d3b_Student
 ON datavalidation.ValidationResult (StudentUSI ASC);
 
-ALTER TABLE datavalidation.ValidationResult ADD CONSTRAINT FK_034d3b_ValidationRule FOREIGN KEY (CollectionIdentifier, RuleIdentifier)
-REFERENCES datavalidation.ValidationRule (CollectionIdentifier, RuleIdentifier)
+ALTER TABLE datavalidation.ValidationResult ADD CONSTRAINT FK_034d3b_ValidationRule FOREIGN KEY (RuleIdentifier, RuleSource)
+REFERENCES datavalidation.ValidationRule (RuleIdentifier, RuleSource)
 ;
 
 CREATE INDEX FK_034d3b_ValidationRule
-ON datavalidation.ValidationResult (CollectionIdentifier ASC, RuleIdentifier ASC);
+ON datavalidation.ValidationResult (RuleIdentifier ASC, RuleSource ASC);
 
-ALTER TABLE datavalidation.ValidationResult ADD CONSTRAINT FK_034d3b_ValidationRun FOREIGN KEY (CollectionIdentifier, ExaminedOds, RuleEngine, RunIdentifier)
-REFERENCES datavalidation.ValidationRun (CollectionIdentifier, ExaminedOds, RuleEngine, RunIdentifier)
+ALTER TABLE datavalidation.ValidationResult ADD CONSTRAINT FK_034d3b_ValidationRun FOREIGN KEY (Host, RuleEngine, RunIdentifier)
+REFERENCES datavalidation.ValidationRun (Host, RuleEngine, RunIdentifier)
 ;
 
 CREATE INDEX FK_034d3b_ValidationRun
-ON datavalidation.ValidationResult (CollectionIdentifier ASC, ExaminedOds ASC, RuleEngine ASC, RunIdentifier ASC);
+ON datavalidation.ValidationResult (Host ASC, RuleEngine ASC, RunIdentifier ASC);
 
-ALTER TABLE datavalidation.ValidationRule ADD CONSTRAINT FK_7a797e_ErrorSeverityLevelDescriptor FOREIGN KEY (ErrorSeverityLevelDescriptorId)
-REFERENCES datavalidation.ErrorSeverityLevelDescriptor (ErrorSeverityLevelDescriptorId)
+ALTER TABLE datavalidation.ValidationResultAdditionalContext ADD CONSTRAINT FK_6555d2_ValidationResult FOREIGN KEY (ResourceType, ResultIdentifier)
+REFERENCES datavalidation.ValidationResult (ResourceType, ResultIdentifier)
+ON DELETE CASCADE
 ;
 
-CREATE INDEX FK_7a797e_ErrorSeverityLevelDescriptor
-ON datavalidation.ValidationRule (ErrorSeverityLevelDescriptorId ASC);
+CREATE INDEX FK_6555d2_ValidationResult
+ON datavalidation.ValidationResultAdditionalContext (ResourceType ASC, ResultIdentifier ASC);
 
 ALTER TABLE datavalidation.ValidationRule ADD CONSTRAINT FK_7a797e_RuleStatusDescriptor FOREIGN KEY (RuleStatusDescriptorId)
 REFERENCES datavalidation.RuleStatusDescriptor (RuleStatusDescriptorId)
@@ -62,6 +68,13 @@ REFERENCES datavalidation.RuleStatusDescriptor (RuleStatusDescriptorId)
 CREATE INDEX FK_7a797e_RuleStatusDescriptor
 ON datavalidation.ValidationRule (RuleStatusDescriptorId ASC);
 
+ALTER TABLE datavalidation.ValidationRule ADD CONSTRAINT FK_7a797e_SeverityDescriptor FOREIGN KEY (SeverityDescriptorId)
+REFERENCES datavalidation.SeverityDescriptor (SeverityDescriptorId)
+;
+
+CREATE INDEX FK_7a797e_SeverityDescriptor
+ON datavalidation.ValidationRule (SeverityDescriptorId ASC);
+
 ALTER TABLE datavalidation.ValidationRule ADD CONSTRAINT FK_7a797e_ValidationLogicTypeDescriptor FOREIGN KEY (ValidationLogicTypeDescriptorId)
 REFERENCES datavalidation.ValidationLogicTypeDescriptor (ValidationLogicTypeDescriptorId)
 ;
@@ -69,29 +82,10 @@ REFERENCES datavalidation.ValidationLogicTypeDescriptor (ValidationLogicTypeDesc
 CREATE INDEX FK_7a797e_ValidationLogicTypeDescriptor
 ON datavalidation.ValidationRule (ValidationLogicTypeDescriptorId ASC);
 
-ALTER TABLE datavalidation.ValidationRule ADD CONSTRAINT FK_7a797e_ValidationRuleCollection FOREIGN KEY (CollectionIdentifier)
-REFERENCES datavalidation.ValidationRuleCollection (CollectionIdentifier)
+ALTER TABLE datavalidation.ValidationRun ADD CONSTRAINT FK_cb5482_RunStatusDescriptor FOREIGN KEY (RunStatusDescriptorId)
+REFERENCES datavalidation.RunStatusDescriptor (RunStatusDescriptorId)
 ;
 
-CREATE INDEX FK_7a797e_ValidationRuleCollection
-ON datavalidation.ValidationRule (CollectionIdentifier ASC);
-
-ALTER TABLE datavalidation.ValidationRun ADD CONSTRAINT FK_cb5482_ValidationRuleCollection FOREIGN KEY (CollectionIdentifier)
-REFERENCES datavalidation.ValidationRuleCollection (CollectionIdentifier)
-;
-
-CREATE INDEX FK_cb5482_ValidationRuleCollection
-ON datavalidation.ValidationRun (CollectionIdentifier ASC);
-
-ALTER TABLE datavalidation.ValidationRun ADD CONSTRAINT FK_cb5482_ValidationRunStatusDescriptor FOREIGN KEY (ValidationRunStatusDescriptorId)
-REFERENCES datavalidation.ValidationRunStatusDescriptor (ValidationRunStatusDescriptorId)
-;
-
-CREATE INDEX FK_cb5482_ValidationRunStatusDescriptor
-ON datavalidation.ValidationRun (ValidationRunStatusDescriptorId ASC);
-
-ALTER TABLE datavalidation.ValidationRunStatusDescriptor ADD CONSTRAINT FK_c63f34_Descriptor FOREIGN KEY (ValidationRunStatusDescriptorId)
-REFERENCES edfi.Descriptor (DescriptorId)
-ON DELETE CASCADE
-;
+CREATE INDEX FK_cb5482_RunStatusDescriptor
+ON datavalidation.ValidationRun (RunStatusDescriptorId ASC);
 

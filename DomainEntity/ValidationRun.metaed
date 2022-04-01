@@ -1,29 +1,26 @@
 Domain Entity ValidationRun
   documentation "A run of a validation engine."
-  domain entity ValidationRuleCollection
-    documentation "The validation collection that this rule belongs to."
-    is part of identity
-  string RuleEngine
-    documentation "A reference to the specific rules engine that ran the validation."
-    is part of identity
-    min length 1
-    max length 100
-  string ExaminedOds
-    documentation "A reference to the EdFi Ods that the validation egine ran agianst."
-    is part of identity
-    min length 1
-    max length 100
   string RunIdentifier
     documentation "An identifier for the validation run that wil differentiate it from other validation runs from the same engine on the same Ods."
     is part of identity
     min length 1
     max length 100
-  descriptor ValidationRunStatus
-    documentation "The status of the validation run."
-    is required
-  datetime StartDateTime
+  datetime RunStartDateTime
     documentation "The datetime that the validation run started, as recorded by the engine"
     is required
-  datetime FinishDateTime
+  datetime RunFinishDateTime
     documentation "The datetime that the validation run finished, as recorded by the engine"
     is optional
+  descriptor RunStatus
+    documentation "The status of the validation run."
+    is required
+  string Host
+    documentation "A reference to the EdFi Ods that the validation egine ran agianst."
+    is part of identity
+    min length 1
+    max length 100
+  string RuleEngine
+    documentation "A reference to the specific rules engine that ran the validation."
+    is part of identity
+    min length 1
+    max length 100

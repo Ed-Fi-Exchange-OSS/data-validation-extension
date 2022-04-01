@@ -10,24 +10,36 @@
     {
       "aggregateRootEntityName": {
         "schema": "datavalidation",
-        "name": "ErrorSeverityLevelDescriptor"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "datavalidation",
-          "name": "ErrorSeverityLevelDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "datavalidation",
         "name": "RuleStatusDescriptor"
       },
       "aggregateEntityNames": [
         {
           "schema": "datavalidation",
           "name": "RuleStatusDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "datavalidation",
+        "name": "RunStatusDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "datavalidation",
+          "name": "RunStatusDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "datavalidation",
+        "name": "SeverityDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "datavalidation",
+          "name": "SeverityDescriptor"
         }
       ]
     },
@@ -52,6 +64,10 @@
         {
           "schema": "datavalidation",
           "name": "ValidationResult"
+        },
+        {
+          "schema": "datavalidation",
+          "name": "ValidationResultAdditionalContext"
         }
       ]
     },
@@ -70,18 +86,6 @@
     {
       "aggregateRootEntityName": {
         "schema": "datavalidation",
-        "name": "ValidationRuleCollection"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "datavalidation",
-          "name": "ValidationRuleCollection"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "datavalidation",
         "name": "ValidationRun"
       },
       "aggregateEntityNames": [
@@ -90,47 +94,10 @@
           "name": "ValidationRun"
         }
       ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "datavalidation",
-        "name": "ValidationRunStatusDescriptor"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "datavalidation",
-          "name": "ValidationRunStatusDescriptor"
-        }
-      ]
     }
   ],
   "aggregateExtensionDefinitions": [],
   "entityDefinitions": [
-    {
-      "schema": "datavalidation",
-      "name": "ErrorSeverityLevelDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "ErrorSeverityLevelDescriptor_PK",
-          "identifyingPropertyNames": [
-            "ErrorSeverityLevelDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "ErrorSeverityLevelDescriptor_PK",
-            "postgreSql": "ErrorSeverityLevelDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The level of validation error",
-      "tableNames": {
-        "sqlServer": "ErrorSeverityLevelDescriptor",
-        "postgreSql": "ErrorSeverityLevelDescriptor"
-      }
-    },
     {
       "schema": "datavalidation",
       "name": "RuleStatusDescriptor",
@@ -154,6 +121,56 @@
       "tableNames": {
         "sqlServer": "RuleStatusDescriptor",
         "postgreSql": "RuleStatusDescriptor"
+      }
+    },
+    {
+      "schema": "datavalidation",
+      "name": "RunStatusDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "RunStatusDescriptor_PK",
+          "identifyingPropertyNames": [
+            "RunStatusDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "RunStatusDescriptor_PK",
+            "postgreSql": "RunStatusDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The status of the validation run.",
+      "tableNames": {
+        "sqlServer": "RunStatusDescriptor",
+        "postgreSql": "RunStatusDescriptor"
+      }
+    },
+    {
+      "schema": "datavalidation",
+      "name": "SeverityDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "SeverityDescriptor_PK",
+          "identifyingPropertyNames": [
+            "SeverityDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "SeverityDescriptor_PK",
+            "postgreSql": "SeverityDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The level of validation error",
+      "tableNames": {
+        "sqlServer": "SeverityDescriptor",
+        "postgreSql": "SeverityDescriptor"
       }
     },
     {
@@ -254,24 +271,41 @@
           }
         },
         {
-          "propertyName": "OtherDetails",
+          "propertyName": "ResourceId",
           "propertyType": {
             "dbType": "String",
-            "maxLength": 1024,
+            "maxLength": 100,
             "precision": 0,
             "scale": 0,
             "isNullable": true
           },
-          "description": "All of the remaining details from the validation results in a JSON string.",
+          "description": "An identifier for the resource related to this validation result.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "OtherDetails",
-            "postgreSql": "OtherDetails"
+            "sqlServer": "ResourceId",
+            "postgreSql": "ResourceId"
           }
         },
         {
-          "propertyName": "ValidationResultIdentifier",
+          "propertyName": "ResourceType",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Tht type of reference identified with the ReferenceId.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ResourceType",
+            "postgreSql": "ResourceType"
+          }
+        },
+        {
+          "propertyName": "ResultIdentifier",
           "propertyType": {
             "dbType": "String",
             "maxLength": 100,
@@ -283,8 +317,8 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ValidationResultIdentifier",
-            "postgreSql": "ValidationResultIdentifier"
+            "sqlServer": "ResultIdentifier",
+            "postgreSql": "ResultIdentifier"
           }
         }
       ],
@@ -304,7 +338,8 @@
         {
           "identifierName": "ValidationResult_PK",
           "identifyingPropertyNames": [
-            "ValidationResultIdentifier"
+            "ResourceType",
+            "ResultIdentifier"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -323,13 +358,92 @@
     },
     {
       "schema": "datavalidation",
+      "name": "ValidationResultAdditionalContext",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "CustomizationValue",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 4000,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Provides the actual value of the data.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CustomizationValue",
+            "postgreSql": "CustomizationValue"
+          }
+        },
+        {
+          "propertyName": "IdentificationCode",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Labels what the data represents.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IdentificationCode",
+            "postgreSql": "IdentificationCode"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "ValidationResultAdditionalContext_PK",
+          "identifyingPropertyNames": [
+            "IdentificationCode",
+            "ResourceType",
+            "ResultIdentifier"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "ValidationResultAdditionalContext_PK",
+            "postgreSql": "ValidationResultAdditionalContext_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "All of the remaining details from the validation results in a JSON string.",
+      "tableNames": {
+        "sqlServer": "ValidationResultAdditionalContext",
+        "postgreSql": "ValidationResultAdditionalContext"
+      }
+    },
+    {
+      "schema": "datavalidation",
       "name": "ValidationRule",
       "locallyDefinedProperties": [
         {
           "propertyName": "Category",
           "propertyType": {
             "dbType": "String",
-            "maxLength": 100,
+            "maxLength": 1024,
             "precision": 0,
             "scale": 0,
             "isNullable": true
@@ -363,12 +477,12 @@
           "propertyName": "Description",
           "propertyType": {
             "dbType": "String",
-            "maxLength": 1024,
+            "maxLength": 4000,
             "precision": 0,
             "scale": 0,
             "isNullable": true
           },
-          "description": "This is non-structured ASCII text that will include the short details that were used in the evaluation of the validation rule.",
+          "description": "This is non-structured ASCII text that will include the verbose details that were used in the evaluation of the validation rule.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -377,7 +491,7 @@
           }
         },
         {
-          "propertyName": "ExternalruleCode",
+          "propertyName": "ExternalRuleId",
           "propertyType": {
             "dbType": "String",
             "maxLength": 100,
@@ -389,8 +503,8 @@
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ExternalruleCode",
-            "postgreSql": "ExternalruleCode"
+            "sqlServer": "ExternalRuleId",
+            "postgreSql": "ExternalRuleId"
           }
         },
         {
@@ -445,23 +559,6 @@
           }
         },
         {
-          "propertyName": "ResourceType",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The EdFi resource type that this rule relates to (other then EducationOrganization, Student, or Staff)",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ResourceType",
-            "postgreSql": "ResourceType"
-          }
-        },
-        {
           "propertyName": "RuleIdentifier",
           "propertyType": {
             "dbType": "String",
@@ -476,6 +573,23 @@
           "columnNames": {
             "sqlServer": "RuleIdentifier",
             "postgreSql": "RuleIdentifier"
+          }
+        },
+        {
+          "propertyName": "RuleSource",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Collection of validation rule.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RuleSource",
+            "postgreSql": "RuleSource"
           }
         },
         {
@@ -499,7 +613,7 @@
           "propertyName": "ValidationLogic",
           "propertyType": {
             "dbType": "String",
-            "maxLength": 1024,
+            "maxLength": 4000,
             "precision": 0,
             "scale": 0,
             "isNullable": true
@@ -529,8 +643,8 @@
         {
           "identifierName": "ValidationRule_PK",
           "identifyingPropertyNames": [
-            "CollectionIdentifier",
-            "RuleIdentifier"
+            "RuleIdentifier",
+            "RuleSource"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -545,129 +659,6 @@
       "tableNames": {
         "sqlServer": "ValidationRule",
         "postgreSql": "ValidationRule"
-      }
-    },
-    {
-      "schema": "datavalidation",
-      "name": "ValidationRuleCollection",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CollectionDescription",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Rule collection description",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CollectionDescription",
-            "postgreSql": "CollectionDescription"
-          }
-        },
-        {
-          "propertyName": "CollectionIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Rule coolection identifier.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CollectionIdentifier",
-            "postgreSql": "CollectionIdentifier"
-          }
-        },
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "Id",
-          "propertyType": {
-            "dbType": "Guid",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "Id",
-            "postgreSql": "Id"
-          }
-        },
-        {
-          "propertyName": "LastModifiedDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastModifiedDate",
-            "postgreSql": "LastModifiedDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "UX_ValidationRuleCollection_Id",
-          "identifyingPropertyNames": [
-            "Id"
-          ],
-          "isPrimary": false,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "UX_ValidationRuleCollection_Id",
-            "postgreSql": "UX_169b76_Id"
-          }
-        },
-        {
-          "identifierName": "ValidationRuleCollection_PK",
-          "identifyingPropertyNames": [
-            "CollectionIdentifier"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "ValidationRuleCollection_PK",
-            "postgreSql": "ValidationRuleCollection_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "Collection of validation rule.",
-      "tableNames": {
-        "sqlServer": "ValidationRuleCollection",
-        "postgreSql": "ValidationRuleCollection"
       }
     },
     {
@@ -692,7 +683,7 @@
           }
         },
         {
-          "propertyName": "ExaminedOds",
+          "propertyName": "Host",
           "propertyType": {
             "dbType": "String",
             "maxLength": 100,
@@ -704,25 +695,8 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ExaminedOds",
-            "postgreSql": "ExaminedOds"
-          }
-        },
-        {
-          "propertyName": "FinishDateTime",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The datetime that the validation run finished, as recorded by the engine",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FinishDateTime",
-            "postgreSql": "FinishDateTime"
+            "sqlServer": "Host",
+            "postgreSql": "Host"
           }
         },
         {
@@ -777,6 +751,23 @@
           }
         },
         {
+          "propertyName": "RunFinishDateTime",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The datetime that the validation run finished, as recorded by the engine",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RunFinishDateTime",
+            "postgreSql": "RunFinishDateTime"
+          }
+        },
+        {
           "propertyName": "RunIdentifier",
           "propertyType": {
             "dbType": "String",
@@ -794,7 +785,7 @@
           }
         },
         {
-          "propertyName": "StartDateTime",
+          "propertyName": "RunStartDateTime",
           "propertyType": {
             "dbType": "DateTime2",
             "maxLength": 0,
@@ -806,8 +797,8 @@
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "StartDateTime",
-            "postgreSql": "StartDateTime"
+            "sqlServer": "RunStartDateTime",
+            "postgreSql": "RunStartDateTime"
           }
         }
       ],
@@ -827,8 +818,7 @@
         {
           "identifierName": "ValidationRun_PK",
           "identifyingPropertyNames": [
-            "CollectionIdentifier",
-            "ExaminedOds",
+            "Host",
             "RuleEngine",
             "RunIdentifier"
           ],
@@ -846,94 +836,9 @@
         "sqlServer": "ValidationRun",
         "postgreSql": "ValidationRun"
       }
-    },
-    {
-      "schema": "datavalidation",
-      "name": "ValidationRunStatusDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "ValidationRunStatusDescriptor_PK",
-          "identifyingPropertyNames": [
-            "ValidationRunStatusDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "ValidationRunStatusDescriptor_PK",
-            "postgreSql": "ValidationRunStatusDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The status of the validation run.",
-      "tableNames": {
-        "sqlServer": "ValidationRunStatusDescriptor",
-        "postgreSql": "ValidationRunStatusDescriptor"
-      }
     }
   ],
   "associationDefinitions": [
-    {
-      "fullName": {
-        "schema": "datavalidation",
-        "name": "FK_ErrorSeverityLevelDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "datavalidation",
-        "name": "ErrorSeverityLevelDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ErrorSeverityLevelDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "ErrorSeverityLevelDescriptorId",
-            "postgreSql": "ErrorSeverityLevelDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ErrorSeverityLevelDescriptor_Descriptor",
-        "postgreSql": "FK_84fc72_Descriptor"
-      },
-      "potentiallyLogical": false
-    },
     {
       "fullName": {
         "schema": "datavalidation",
@@ -991,6 +896,126 @@
       "constraintNames": {
         "sqlServer": "FK_RuleStatusDescriptor_Descriptor",
         "postgreSql": "FK_61fb33_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "datavalidation",
+        "name": "FK_RunStatusDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "datavalidation",
+        "name": "RunStatusDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "RunStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "RunStatusDescriptorId",
+            "postgreSql": "RunStatusDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_RunStatusDescriptor_Descriptor",
+        "postgreSql": "FK_dd5cf9_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "datavalidation",
+        "name": "FK_SeverityDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "datavalidation",
+        "name": "SeverityDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SeverityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "SeverityDescriptorId",
+            "postgreSql": "SeverityDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_SeverityDescriptor_Descriptor",
+        "postgreSql": "FK_97a343_Descriptor"
       },
       "potentiallyLogical": false
     },
@@ -1246,23 +1271,6 @@
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "CollectionIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Rule coolection identifier.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CollectionIdentifier",
-            "postgreSql": "CollectionIdentifier"
-          }
-        },
-        {
           "propertyName": "RuleIdentifier",
           "propertyType": {
             "dbType": "String",
@@ -1277,6 +1285,23 @@
           "columnNames": {
             "sqlServer": "RuleIdentifier",
             "postgreSql": "RuleIdentifier"
+          }
+        },
+        {
+          "propertyName": "RuleSource",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Collection of validation rule.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RuleSource",
+            "postgreSql": "RuleSource"
           }
         }
       ],
@@ -1286,23 +1311,6 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "CollectionIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Rule coolection identifier.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CollectionIdentifier",
-            "postgreSql": "CollectionIdentifier"
-          }
-        },
-        {
           "propertyName": "RuleIdentifier",
           "propertyType": {
             "dbType": "String",
@@ -1317,6 +1325,23 @@
           "columnNames": {
             "sqlServer": "RuleIdentifier",
             "postgreSql": "RuleIdentifier"
+          }
+        },
+        {
+          "propertyName": "RuleSource",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Collection of validation rule.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RuleSource",
+            "postgreSql": "RuleSource"
           }
         }
       ],
@@ -1340,24 +1365,7 @@
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "CollectionIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Rule coolection identifier.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CollectionIdentifier",
-            "postgreSql": "CollectionIdentifier"
-          }
-        },
-        {
-          "propertyName": "ExaminedOds",
+          "propertyName": "Host",
           "propertyType": {
             "dbType": "String",
             "maxLength": 100,
@@ -1369,8 +1377,8 @@
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ExaminedOds",
-            "postgreSql": "ExaminedOds"
+            "sqlServer": "Host",
+            "postgreSql": "Host"
           }
         },
         {
@@ -1414,24 +1422,7 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "CollectionIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Rule coolection identifier.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CollectionIdentifier",
-            "postgreSql": "CollectionIdentifier"
-          }
-        },
-        {
-          "propertyName": "ExaminedOds",
+          "propertyName": "Host",
           "propertyType": {
             "dbType": "String",
             "maxLength": 100,
@@ -1443,8 +1434,8 @@
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ExaminedOds",
-            "postgreSql": "ExaminedOds"
+            "sqlServer": "Host",
+            "postgreSql": "Host"
           }
         },
         {
@@ -1493,60 +1484,94 @@
     {
       "fullName": {
         "schema": "datavalidation",
-        "name": "FK_ValidationRule_ErrorSeverityLevelDescriptor"
+        "name": "FK_ValidationResultAdditionalContext_ValidationResult"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "datavalidation",
-        "name": "ErrorSeverityLevelDescriptor"
+        "name": "ValidationResult"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ErrorSeverityLevelDescriptorId",
+          "propertyName": "ResourceType",
           "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
+            "dbType": "String",
+            "maxLength": 100,
+            "precision": 0,
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
+          "description": "Tht type of reference identified with the ReferenceId.",
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ErrorSeverityLevelDescriptorId",
-            "postgreSql": "ErrorSeverityLevelDescriptorId"
+            "sqlServer": "ResourceType",
+            "postgreSql": "ResourceType"
+          }
+        },
+        {
+          "propertyName": "ResultIdentifier",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "An identifier for this validation result, unique within the validation run.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ResultIdentifier",
+            "postgreSql": "ResultIdentifier"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "datavalidation",
-        "name": "ValidationRule"
+        "name": "ValidationResultAdditionalContext"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ErrorSeverityLevelDescriptorId",
+          "propertyName": "ResourceType",
           "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
+            "dbType": "String",
+            "maxLength": 100,
+            "precision": 0,
             "scale": 0,
-            "isNullable": true
+            "isNullable": false
           },
-          "description": "The level of validation error",
-          "isIdentifying": false,
+          "description": "Tht type of reference identified with the ReferenceId.",
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ErrorSeverityLevelDescriptorId",
-            "postgreSql": "ErrorSeverityLevelDescriptorId"
+            "sqlServer": "ResourceType",
+            "postgreSql": "ResourceType"
+          }
+        },
+        {
+          "propertyName": "ResultIdentifier",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "An identifier for this validation result, unique within the validation run.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ResultIdentifier",
+            "postgreSql": "ResultIdentifier"
           }
         }
       ],
-      "isIdentifying": false,
-      "isRequired": false,
+      "isIdentifying": true,
+      "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ValidationRule_ErrorSeverityLevelDescriptor",
-        "postgreSql": "FK_7a797e_ErrorSeverityLevelDescriptor"
+        "sqlServer": "FK_ValidationResultAdditionalContext_ValidationResult",
+        "postgreSql": "FK_6555d2_ValidationResult"
       },
       "potentiallyLogical": false
     },
@@ -1613,6 +1638,66 @@
     {
       "fullName": {
         "schema": "datavalidation",
+        "name": "FK_ValidationRule_SeverityDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "datavalidation",
+        "name": "SeverityDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SeverityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SeverityDescriptorId",
+            "postgreSql": "SeverityDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "datavalidation",
+        "name": "ValidationRule"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SeverityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The level of validation error",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SeverityDescriptorId",
+            "postgreSql": "SeverityDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_ValidationRule_SeverityDescriptor",
+        "postgreSql": "FK_7a797e_SeverityDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "datavalidation",
         "name": "FK_ValidationRule_ValidationLogicTypeDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -1673,136 +1758,16 @@
     {
       "fullName": {
         "schema": "datavalidation",
-        "name": "FK_ValidationRule_ValidationRuleCollection"
+        "name": "FK_ValidationRun_RunStatusDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "datavalidation",
-        "name": "ValidationRuleCollection"
+        "name": "RunStatusDescriptor"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "CollectionIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Rule coolection identifier.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CollectionIdentifier",
-            "postgreSql": "CollectionIdentifier"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "datavalidation",
-        "name": "ValidationRule"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "CollectionIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Rule coolection identifier.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CollectionIdentifier",
-            "postgreSql": "CollectionIdentifier"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ValidationRule_ValidationRuleCollection",
-        "postgreSql": "FK_7a797e_ValidationRuleCollection"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "datavalidation",
-        "name": "FK_ValidationRun_ValidationRuleCollection"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "datavalidation",
-        "name": "ValidationRuleCollection"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "CollectionIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Rule coolection identifier.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CollectionIdentifier",
-            "postgreSql": "CollectionIdentifier"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "datavalidation",
-        "name": "ValidationRun"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "CollectionIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Rule coolection identifier.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CollectionIdentifier",
-            "postgreSql": "CollectionIdentifier"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ValidationRun_ValidationRuleCollection",
-        "postgreSql": "FK_cb5482_ValidationRuleCollection"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "datavalidation",
-        "name": "FK_ValidationRun_ValidationRunStatusDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "datavalidation",
-        "name": "ValidationRunStatusDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ValidationRunStatusDescriptorId",
+          "propertyName": "RunStatusDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -1814,8 +1779,8 @@
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ValidationRunStatusDescriptorId",
-            "postgreSql": "ValidationRunStatusDescriptorId"
+            "sqlServer": "RunStatusDescriptorId",
+            "postgreSql": "RunStatusDescriptorId"
           }
         }
       ],
@@ -1825,7 +1790,7 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ValidationRunStatusDescriptorId",
+          "propertyName": "RunStatusDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -1837,76 +1802,16 @@
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ValidationRunStatusDescriptorId",
-            "postgreSql": "ValidationRunStatusDescriptorId"
+            "sqlServer": "RunStatusDescriptorId",
+            "postgreSql": "RunStatusDescriptorId"
           }
         }
       ],
       "isIdentifying": false,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ValidationRun_ValidationRunStatusDescriptor",
-        "postgreSql": "FK_cb5482_ValidationRunStatusDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "datavalidation",
-        "name": "FK_ValidationRunStatusDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "datavalidation",
-        "name": "ValidationRunStatusDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ValidationRunStatusDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "ValidationRunStatusDescriptorId",
-            "postgreSql": "ValidationRunStatusDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ValidationRunStatusDescriptor_Descriptor",
-        "postgreSql": "FK_c63f34_Descriptor"
+        "sqlServer": "FK_ValidationRun_RunStatusDescriptor",
+        "postgreSql": "FK_cb5482_RunStatusDescriptor"
       },
       "potentiallyLogical": false
     }

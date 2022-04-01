@@ -1,21 +1,3 @@
-CREATE TRIGGER [datavalidation].[datavalidation_ErrorSeverityLevelDescriptor_TR_DeleteTracking] ON [datavalidation].[ErrorSeverityLevelDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_datavalidation].[ErrorSeverityLevelDescriptor](ErrorSeverityLevelDescriptorId, Id, ChangeVersion)
-    SELECT  d.ErrorSeverityLevelDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.ErrorSeverityLevelDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [datavalidation].[ErrorSeverityLevelDescriptor] ENABLE TRIGGER [datavalidation_ErrorSeverityLevelDescriptor_TR_DeleteTracking]
-GO
-
-
 CREATE TRIGGER [datavalidation].[datavalidation_RuleStatusDescriptor_TR_DeleteTracking] ON [datavalidation].[RuleStatusDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -31,6 +13,42 @@ END
 GO
 
 ALTER TABLE [datavalidation].[RuleStatusDescriptor] ENABLE TRIGGER [datavalidation_RuleStatusDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [datavalidation].[datavalidation_RunStatusDescriptor_TR_DeleteTracking] ON [datavalidation].[RunStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_datavalidation].[RunStatusDescriptor](RunStatusDescriptorId, Id, ChangeVersion)
+    SELECT  d.RunStatusDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.RunStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [datavalidation].[RunStatusDescriptor] ENABLE TRIGGER [datavalidation_RunStatusDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [datavalidation].[datavalidation_SeverityDescriptor_TR_DeleteTracking] ON [datavalidation].[SeverityDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_datavalidation].[SeverityDescriptor](SeverityDescriptorId, Id, ChangeVersion)
+    SELECT  d.SeverityDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.SeverityDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [datavalidation].[SeverityDescriptor] ENABLE TRIGGER [datavalidation_SeverityDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -59,30 +77,13 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_datavalidation].[ValidationResult](ValidationResultIdentifier, Id, ChangeVersion)
-    SELECT  ValidationResultIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_datavalidation].[ValidationResult](ResourceType, ResultIdentifier, Id, ChangeVersion)
+    SELECT  ResourceType, ResultIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO
 
 ALTER TABLE [datavalidation].[ValidationResult] ENABLE TRIGGER [datavalidation_ValidationResult_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [datavalidation].[datavalidation_ValidationRuleCollection_TR_DeleteTracking] ON [datavalidation].[ValidationRuleCollection] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_datavalidation].[ValidationRuleCollection](CollectionIdentifier, Id, ChangeVersion)
-    SELECT  CollectionIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [datavalidation].[ValidationRuleCollection] ENABLE TRIGGER [datavalidation_ValidationRuleCollection_TR_DeleteTracking]
 GO
 
 
@@ -93,31 +94,13 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_datavalidation].[ValidationRule](CollectionIdentifier, RuleIdentifier, Id, ChangeVersion)
-    SELECT  CollectionIdentifier, RuleIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_datavalidation].[ValidationRule](RuleIdentifier, RuleSource, Id, ChangeVersion)
+    SELECT  RuleIdentifier, RuleSource, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO
 
 ALTER TABLE [datavalidation].[ValidationRule] ENABLE TRIGGER [datavalidation_ValidationRule_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [datavalidation].[datavalidation_ValidationRunStatusDescriptor_TR_DeleteTracking] ON [datavalidation].[ValidationRunStatusDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_datavalidation].[ValidationRunStatusDescriptor](ValidationRunStatusDescriptorId, Id, ChangeVersion)
-    SELECT  d.ValidationRunStatusDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.ValidationRunStatusDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [datavalidation].[ValidationRunStatusDescriptor] ENABLE TRIGGER [datavalidation_ValidationRunStatusDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -128,8 +111,8 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_datavalidation].[ValidationRun](CollectionIdentifier, ExaminedOds, RuleEngine, RunIdentifier, Id, ChangeVersion)
-    SELECT  CollectionIdentifier, ExaminedOds, RuleEngine, RunIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_datavalidation].[ValidationRun](Host, RuleEngine, RunIdentifier, Id, ChangeVersion)
+    SELECT  Host, RuleEngine, RunIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO

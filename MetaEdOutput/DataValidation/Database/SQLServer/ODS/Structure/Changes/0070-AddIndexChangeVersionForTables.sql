@@ -11,12 +11,6 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'datavalidation.ValidationRuleCollection') AND name = N'UX_ValidationRuleCollection_ChangeVersion')
-    CREATE INDEX [UX_ValidationRuleCollection_ChangeVersion] ON [datavalidation].[ValidationRuleCollection] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'datavalidation.ValidationRun') AND name = N'UX_ValidationRun_ChangeVersion')
     CREATE INDEX [UX_ValidationRun_ChangeVersion] ON [datavalidation].[ValidationRun] ([ChangeVersion] ASC)
     GO

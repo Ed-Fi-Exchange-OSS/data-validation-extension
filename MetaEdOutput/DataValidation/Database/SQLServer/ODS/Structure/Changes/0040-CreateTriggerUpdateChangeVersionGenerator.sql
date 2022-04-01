@@ -18,16 +18,6 @@ BEGIN
 END	
 GO
 
-CREATE TRIGGER [datavalidation].[datavalidation_ValidationRuleCollection_TR_UpdateChangeVersion] ON [datavalidation].[ValidationRuleCollection] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [datavalidation].[ValidationRuleCollection]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [datavalidation].[ValidationRuleCollection] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
 CREATE TRIGGER [datavalidation].[datavalidation_ValidationRun_TR_UpdateChangeVersion] ON [datavalidation].[ValidationRun] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;

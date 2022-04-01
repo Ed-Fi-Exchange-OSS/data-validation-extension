@@ -1,17 +1,3 @@
-CREATE FUNCTION tracked_deletes_datavalidation.ErrorSeverityLevelDescriptor_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_datavalidation.ErrorSeverityLevelDescriptor(ErrorSeverityLevelDescriptorId, Id, ChangeVersion)
-    SELECT OLD.ErrorSeverityLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.ErrorSeverityLevelDescriptorId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON datavalidation.ErrorSeverityLevelDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_datavalidation.ErrorSeverityLevelDescriptor_TR_DelTrkg();
-
 CREATE FUNCTION tracked_deletes_datavalidation.RuleStatusDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -25,6 +11,34 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON datavalidation.RuleStatusDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_datavalidation.RuleStatusDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_datavalidation.RunStatusDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_datavalidation.RunStatusDescriptor(RunStatusDescriptorId, Id, ChangeVersion)
+    SELECT OLD.RunStatusDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.RunStatusDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON datavalidation.RunStatusDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_datavalidation.RunStatusDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_datavalidation.SeverityDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_datavalidation.SeverityDescriptor(SeverityDescriptorId, Id, ChangeVersion)
+    SELECT OLD.SeverityDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.SeverityDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON datavalidation.SeverityDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_datavalidation.SeverityDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_datavalidation.ValidationLogicTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -44,8 +58,8 @@ CREATE FUNCTION tracked_deletes_datavalidation.ValidationResult_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_datavalidation.ValidationResult(ValidationResultIdentifier, Id, ChangeVersion)
-    VALUES (OLD.ValidationResultIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_datavalidation.ValidationResult(ResourceType, ResultIdentifier, Id, ChangeVersion)
+    VALUES (OLD.ResourceType, OLD.ResultIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -53,25 +67,12 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON datavalidation.ValidationResult 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_datavalidation.ValidationResult_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_datavalidation.ValidationRuleCollection_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_datavalidation.ValidationRuleCollection(CollectionIdentifier, Id, ChangeVersion)
-    VALUES (OLD.CollectionIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON datavalidation.ValidationRuleCollection 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_datavalidation.ValidationRuleCollection_TR_DelTrkg();
-
 CREATE FUNCTION tracked_deletes_datavalidation.ValidationRule_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_datavalidation.ValidationRule(CollectionIdentifier, RuleIdentifier, Id, ChangeVersion)
-    VALUES (OLD.CollectionIdentifier, OLD.RuleIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_datavalidation.ValidationRule(RuleIdentifier, RuleSource, Id, ChangeVersion)
+    VALUES (OLD.RuleIdentifier, OLD.RuleSource, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -79,26 +80,12 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON datavalidation.ValidationRule 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_datavalidation.ValidationRule_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_datavalidation.ValidationRunStatusDescriptor_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_datavalidation.ValidationRunStatusDescriptor(ValidationRunStatusDescriptorId, Id, ChangeVersion)
-    SELECT OLD.ValidationRunStatusDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.ValidationRunStatusDescriptorId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON datavalidation.ValidationRunStatusDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_datavalidation.ValidationRunStatusDescriptor_TR_DelTrkg();
-
 CREATE FUNCTION tracked_deletes_datavalidation.ValidationRun_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_datavalidation.ValidationRun(CollectionIdentifier, ExaminedOds, RuleEngine, RunIdentifier, Id, ChangeVersion)
-    VALUES (OLD.CollectionIdentifier, OLD.ExaminedOds, OLD.RuleEngine, OLD.RunIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_datavalidation.ValidationRun(Host, RuleEngine, RunIdentifier, Id, ChangeVersion)
+    VALUES (OLD.Host, OLD.RuleEngine, OLD.RunIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;

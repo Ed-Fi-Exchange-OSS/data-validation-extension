@@ -1,2 +1,2 @@
-Descriptor ValidationRunStatus
+Descriptor RunStatus
     documentation "The status of the validation run."

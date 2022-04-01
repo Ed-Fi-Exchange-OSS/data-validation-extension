@@ -2,7 +2,5 @@ CREATE INDEX IF NOT EXISTS UX_034d3b_ChangeVersion ON datavalidation.ValidationR
 
 CREATE INDEX IF NOT EXISTS UX_7a797e_ChangeVersion ON datavalidation.ValidationRule(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_169b76_ChangeVersion ON datavalidation.ValidationRuleCollection(ChangeVersion);
-
 CREATE INDEX IF NOT EXISTS UX_cb5482_ChangeVersion ON datavalidation.ValidationRun(ChangeVersion);
 

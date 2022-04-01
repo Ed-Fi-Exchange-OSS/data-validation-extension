@@ -4,9 +4,6 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON datavalidation.ValidationRes
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON datavalidation.ValidationRule
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON datavalidation.ValidationRuleCollection
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON datavalidation.ValidationRun
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 

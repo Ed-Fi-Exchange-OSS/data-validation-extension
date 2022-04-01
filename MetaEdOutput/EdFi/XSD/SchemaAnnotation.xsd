@@ -82,7 +82,6 @@
       <xs:enumeration value="EmploymentStatusDescriptor" />
       <xs:enumeration value="EntryGradeLevelReasonDescriptor" />
       <xs:enumeration value="EntryTypeDescriptor" />
-      <xs:enumeration value="ErrorSeverityLevelDescriptor" />
       <xs:enumeration value="EventCircumstanceDescriptor" />
       <xs:enumeration value="ExitWithdrawTypeDescriptor" />
       <xs:enumeration value="GradebookEntryTypeDescriptor" />
@@ -168,6 +167,7 @@
       <xs:enumeration value="ResultDatatypeTypeDescriptor" />
       <xs:enumeration value="RetestIndicatorDescriptor" />
       <xs:enumeration value="RuleStatusDescriptor" />
+      <xs:enumeration value="RunStatusDescriptor" />
       <xs:enumeration value="SchoolCategoryDescriptor" />
       <xs:enumeration value="SchoolChoiceImplementStatusDescriptor" />
       <xs:enumeration value="SchoolFoodServiceProgramServiceDescriptor" />
@@ -176,6 +176,7 @@
       <xs:enumeration value="SeparationDescriptor" />
       <xs:enumeration value="SeparationReasonDescriptor" />
       <xs:enumeration value="ServiceDescriptor" />
+      <xs:enumeration value="SeverityDescriptor" />
       <xs:enumeration value="SexDescriptor" />
       <xs:enumeration value="SourceSystemDescriptor" />
       <xs:enumeration value="SpecialEducationProgramServiceDescriptor" />
@@ -199,7 +200,6 @@
       <xs:enumeration value="TitleIPartASchoolDesignationDescriptor" />
       <xs:enumeration value="TribalAffiliationDescriptor" />
       <xs:enumeration value="ValidationLogicTypeDescriptor" />
-      <xs:enumeration value="ValidationRunStatusDescriptor" />
       <xs:enumeration value="VisaDescriptor" />
       <xs:enumeration value="WeaponDescriptor" />
     </xs:restriction>

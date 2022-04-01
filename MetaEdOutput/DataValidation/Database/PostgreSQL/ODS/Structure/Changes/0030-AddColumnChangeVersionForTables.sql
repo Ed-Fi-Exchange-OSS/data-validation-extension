@@ -4,9 +4,6 @@ ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NU
 ALTER TABLE datavalidation.ValidationRule
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
-ALTER TABLE datavalidation.ValidationRuleCollection
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
 ALTER TABLE datavalidation.ValidationRun
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 

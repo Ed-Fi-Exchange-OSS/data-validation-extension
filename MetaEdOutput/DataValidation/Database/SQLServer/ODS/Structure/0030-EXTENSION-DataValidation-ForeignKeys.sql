@@ -1,9 +1,14 @@
-ALTER TABLE [datavalidation].[ErrorSeverityLevelDescriptor] WITH CHECK ADD CONSTRAINT [FK_ErrorSeverityLevelDescriptor_Descriptor] FOREIGN KEY ([ErrorSeverityLevelDescriptorId])
+ALTER TABLE [datavalidation].[RuleStatusDescriptor] WITH CHECK ADD CONSTRAINT [FK_RuleStatusDescriptor_Descriptor] FOREIGN KEY ([RuleStatusDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [datavalidation].[RuleStatusDescriptor] WITH CHECK ADD CONSTRAINT [FK_RuleStatusDescriptor_Descriptor] FOREIGN KEY ([RuleStatusDescriptorId])
+ALTER TABLE [datavalidation].[RunStatusDescriptor] WITH CHECK ADD CONSTRAINT [FK_RunStatusDescriptor_Descriptor] FOREIGN KEY ([RunStatusDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [datavalidation].[SeverityDescriptor] WITH CHECK ADD CONSTRAINT [FK_SeverityDescriptor_Descriptor] FOREIGN KEY ([SeverityDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
@@ -37,28 +42,29 @@ CREATE NONCLUSTERED INDEX [FK_ValidationResult_Student]
 ON [datavalidation].[ValidationResult] ([StudentUSI] ASC)
 GO
 
-ALTER TABLE [datavalidation].[ValidationResult] WITH CHECK ADD CONSTRAINT [FK_ValidationResult_ValidationRule] FOREIGN KEY ([CollectionIdentifier], [RuleIdentifier])
-REFERENCES [datavalidation].[ValidationRule] ([CollectionIdentifier], [RuleIdentifier])
+ALTER TABLE [datavalidation].[ValidationResult] WITH CHECK ADD CONSTRAINT [FK_ValidationResult_ValidationRule] FOREIGN KEY ([RuleIdentifier], [RuleSource])
+REFERENCES [datavalidation].[ValidationRule] ([RuleIdentifier], [RuleSource])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_ValidationResult_ValidationRule]
-ON [datavalidation].[ValidationResult] ([CollectionIdentifier] ASC, [RuleIdentifier] ASC)
+ON [datavalidation].[ValidationResult] ([RuleIdentifier] ASC, [RuleSource] ASC)
 GO
 
-ALTER TABLE [datavalidation].[ValidationResult] WITH CHECK ADD CONSTRAINT [FK_ValidationResult_ValidationRun] FOREIGN KEY ([CollectionIdentifier], [ExaminedOds], [RuleEngine], [RunIdentifier])
-REFERENCES [datavalidation].[ValidationRun] ([CollectionIdentifier], [ExaminedOds], [RuleEngine], [RunIdentifier])
+ALTER TABLE [datavalidation].[ValidationResult] WITH CHECK ADD CONSTRAINT [FK_ValidationResult_ValidationRun] FOREIGN KEY ([Host], [RuleEngine], [RunIdentifier])
+REFERENCES [datavalidation].[ValidationRun] ([Host], [RuleEngine], [RunIdentifier])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_ValidationResult_ValidationRun]
-ON [datavalidation].[ValidationResult] ([CollectionIdentifier] ASC, [ExaminedOds] ASC, [RuleEngine] ASC, [RunIdentifier] ASC)
+ON [datavalidation].[ValidationResult] ([Host] ASC, [RuleEngine] ASC, [RunIdentifier] ASC)
 GO
 
-ALTER TABLE [datavalidation].[ValidationRule] WITH CHECK ADD CONSTRAINT [FK_ValidationRule_ErrorSeverityLevelDescriptor] FOREIGN KEY ([ErrorSeverityLevelDescriptorId])
-REFERENCES [datavalidation].[ErrorSeverityLevelDescriptor] ([ErrorSeverityLevelDescriptorId])
+ALTER TABLE [datavalidation].[ValidationResultAdditionalContext] WITH CHECK ADD CONSTRAINT [FK_ValidationResultAdditionalContext_ValidationResult] FOREIGN KEY ([ResourceType], [ResultIdentifier])
+REFERENCES [datavalidation].[ValidationResult] ([ResourceType], [ResultIdentifier])
+ON DELETE CASCADE
 GO
 
-CREATE NONCLUSTERED INDEX [FK_ValidationRule_ErrorSeverityLevelDescriptor]
-ON [datavalidation].[ValidationRule] ([ErrorSeverityLevelDescriptorId] ASC)
+CREATE NONCLUSTERED INDEX [FK_ValidationResultAdditionalContext_ValidationResult]
+ON [datavalidation].[ValidationResultAdditionalContext] ([ResourceType] ASC, [ResultIdentifier] ASC)
 GO
 
 ALTER TABLE [datavalidation].[ValidationRule] WITH CHECK ADD CONSTRAINT [FK_ValidationRule_RuleStatusDescriptor] FOREIGN KEY ([RuleStatusDescriptorId])
@@ -69,6 +75,14 @@ CREATE NONCLUSTERED INDEX [FK_ValidationRule_RuleStatusDescriptor]
 ON [datavalidation].[ValidationRule] ([RuleStatusDescriptorId] ASC)
 GO
 
+ALTER TABLE [datavalidation].[ValidationRule] WITH CHECK ADD CONSTRAINT [FK_ValidationRule_SeverityDescriptor] FOREIGN KEY ([SeverityDescriptorId])
+REFERENCES [datavalidation].[SeverityDescriptor] ([SeverityDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_ValidationRule_SeverityDescriptor]
+ON [datavalidation].[ValidationRule] ([SeverityDescriptorId] ASC)
+GO
+
 ALTER TABLE [datavalidation].[ValidationRule] WITH CHECK ADD CONSTRAINT [FK_ValidationRule_ValidationLogicTypeDescriptor] FOREIGN KEY ([ValidationLogicTypeDescriptorId])
 REFERENCES [datavalidation].[ValidationLogicTypeDescriptor] ([ValidationLogicTypeDescriptorId])
 GO
@@ -77,32 +91,11 @@ CREATE NONCLUSTERED INDEX [FK_ValidationRule_ValidationLogicTypeDescriptor]
 ON [datavalidation].[ValidationRule] ([ValidationLogicTypeDescriptorId] ASC)
 GO
 
-ALTER TABLE [datavalidation].[ValidationRule] WITH CHECK ADD CONSTRAINT [FK_ValidationRule_ValidationRuleCollection] FOREIGN KEY ([CollectionIdentifier])
-REFERENCES [datavalidation].[ValidationRuleCollection] ([CollectionIdentifier])
+ALTER TABLE [datavalidation].[ValidationRun] WITH CHECK ADD CONSTRAINT [FK_ValidationRun_RunStatusDescriptor] FOREIGN KEY ([RunStatusDescriptorId])
+REFERENCES [datavalidation].[RunStatusDescriptor] ([RunStatusDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_ValidationRule_ValidationRuleCollection]
-ON [datavalidation].[ValidationRule] ([CollectionIdentifier] ASC)
-GO
-
-ALTER TABLE [datavalidation].[ValidationRun] WITH CHECK ADD CONSTRAINT [FK_ValidationRun_ValidationRuleCollection] FOREIGN KEY ([CollectionIdentifier])
-REFERENCES [datavalidation].[ValidationRuleCollection] ([CollectionIdentifier])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_ValidationRun_ValidationRuleCollection]
-ON [datavalidation].[ValidationRun] ([CollectionIdentifier] ASC)
-GO
-
-ALTER TABLE [datavalidation].[ValidationRun] WITH CHECK ADD CONSTRAINT [FK_ValidationRun_ValidationRunStatusDescriptor] FOREIGN KEY ([ValidationRunStatusDescriptorId])
-REFERENCES [datavalidation].[ValidationRunStatusDescriptor] ([ValidationRunStatusDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_ValidationRun_ValidationRunStatusDescriptor]
-ON [datavalidation].[ValidationRun] ([ValidationRunStatusDescriptorId] ASC)
-GO
-
-ALTER TABLE [datavalidation].[ValidationRunStatusDescriptor] WITH CHECK ADD CONSTRAINT [FK_ValidationRunStatusDescriptor_Descriptor] FOREIGN KEY ([ValidationRunStatusDescriptorId])
-REFERENCES [edfi].[Descriptor] ([DescriptorId])
-ON DELETE CASCADE
+CREATE NONCLUSTERED INDEX [FK_ValidationRun_RunStatusDescriptor]
+ON [datavalidation].[ValidationRun] ([RunStatusDescriptorId] ASC)
 GO
 
