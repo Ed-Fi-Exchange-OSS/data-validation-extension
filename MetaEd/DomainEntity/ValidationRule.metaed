@@ -1,0 +1,47 @@
+Domain Entity ValidationRule
+    documentation "A rule that will find specific examples of invalid data."
+    string RuleIdentifier
+      documentation "uniquely identifies a rule in a Collection"
+      is part of identity
+      min length 1
+      max length 100
+    string RuleSource
+      documentation "Collection of validation rule."
+      is part of identity
+      min length 1
+      max length 100
+    shared string EdFi.URI named HelpUrl
+      documentation "A link to more information about the rule and how to resolve it."
+      is optional
+    shared string EdFi.Description named ShortDescription
+      documentation "This is non-structured ASCII text that will include the short details that were used in the evaluation of the validation rule."
+      is optional
+    string Description
+      documentation "This is non-structured ASCII text that will include the verbose details that were used in the evaluation of the validation rule."
+      is optional
+      min length 1
+      max length 4000
+    descriptor RuleStatus
+        documentation "The status of a validation rule."
+        is optional
+   string Category
+      documentation "The category of the rule."
+      is optional
+      min length 1
+      max length 1024
+    descriptor Severity
+      documentation "The level of validation error"
+      is optional
+    string ExternalRuleId
+      documentation "A reference to an external id for the rule."
+      is optional
+      min length 1
+      max length 100
+    descriptor ValidationLogicType
+        documentation "The specific programing language (or pseudo-code) used to specify the rule"
+        is optional
+    string ValidationLogic
+      documentation "If applicable, the SQL statement that identifies the validation situation."
+      is optional
+      min length 1
+      max length 4000

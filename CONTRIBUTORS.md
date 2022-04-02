@@ -1,4 +1,5 @@
 # Contributors List
+	
 
 This is the list of the project's significant contributors.
 
@@ -9,3 +10,5 @@ contributors
 graph](https://github.com/Ed-Fi-Exchange-OSS/data-validation-extension/graphs/contributors).
 New contributors should add their name and e-mail address or link to GitHub
 profile to this file with their first pull request.
+
+* Jon Hickam, jon@redglobeinc.com

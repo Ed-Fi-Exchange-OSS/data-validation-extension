@@ -1,0 +1,10 @@
+Common AdditionalContext
+    documentation "Name / Value pairs for storing data elements that do not otherwise fit into validation results."
+    shared string EdFi.IdentificationCode
+        documentation "Labels what the data represents."
+        is part of identity
+    string CustomizationValue
+        documentation "Provides the actual value of the data."
+        is required
+        min length 1
+        max length 4000
