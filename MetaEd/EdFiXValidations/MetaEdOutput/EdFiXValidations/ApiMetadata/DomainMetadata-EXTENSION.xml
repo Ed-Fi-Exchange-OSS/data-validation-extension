@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AggregateExtensions logicalSchema="EdFiXValidations" schema="edfixvalidations">
+  <Aggregate root="RuleStatusDescriptor">
+    <Entity table="RuleStatusDescriptor" isA="Descriptor" schema="edfixvalidations"/>
+  </Aggregate>
+  <Aggregate root="RunStatusDescriptor">
+    <Entity table="RunStatusDescriptor" isA="Descriptor" schema="edfixvalidations"/>
+  </Aggregate>
+  <Aggregate root="SeverityDescriptor">
+    <Entity table="SeverityDescriptor" isA="Descriptor" schema="edfixvalidations"/>
+  </Aggregate>
+  <Aggregate root="ValidationLogicTypeDescriptor">
+    <Entity table="ValidationLogicTypeDescriptor" isA="Descriptor" schema="edfixvalidations"/>
+  </Aggregate>
+  <Aggregate root="ValidationResult">
+    <Entity table="ValidationResult" schema="edfixvalidations"/>
+    <Entity table="ValidationResultAdditionalContext" schema="edfixvalidations"/>
+  </Aggregate>
+  <Aggregate root="ValidationRule">
+    <Entity table="ValidationRule" schema="edfixvalidations"/>
+  </Aggregate>
+  <Aggregate root="ValidationRun">
+    <Entity table="ValidationRun" schema="edfixvalidations"/>
+  </Aggregate>
+</AggregateExtensions>

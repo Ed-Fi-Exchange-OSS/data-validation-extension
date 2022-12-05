@@ -1,0 +1,2 @@
+Descriptor RuleStatus
+    documentation "The status of a validation rule."
